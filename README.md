@@ -14,8 +14,7 @@ And then execute:
 
 ## Usage
 
-```
-#!ruby
+```ruby
 petstore = Petstore.new()
 
 # GET /pet/1
