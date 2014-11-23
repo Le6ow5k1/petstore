@@ -1,6 +1,7 @@
 module Petstore
   class Request
     require 'active_model'
+    require 'petstore/response'
 
     include ActiveModel::Validations
 
@@ -18,15 +19,20 @@ module Petstore
     def make
       case @method
       when :get
-        get
+        response = get
+        Petstore::Response.new(response.status, response.body).parse
       when :post
-        post
+        response = post
+        Petstore::Response.new(response.status, response.body).parse
       when :delete
-        delete
+        response = delete
+        Petstore::Response.new(response.status, response.body).parse
       when :put
-        put
+        response = put
+        Petstore::Response.new(response.status, response.body).parse
       when :patch
-        patch
+        response = patch
+        Petstore::Response.new(response.status, response.body).parse
       end
     end
 
