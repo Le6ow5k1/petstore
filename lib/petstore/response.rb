@@ -1,5 +1,5 @@
 module Petstore
-  class Responce
+  class Response
     require 'json'
     require 'petstore/errors'
 
@@ -8,14 +8,16 @@ module Petstore
     def initialize(status, body)
       @status = status
       @body = body
-
-      parse_response
     end
     
-    def parse_response
+    def parse
       case @status
       when 200
-        JSON.parse(@body)
+        begin
+          JSON.parse(@body)
+        rescue JSON::ParserError
+          nil
+        end
       when 404
         raise NotFound.new body[:message]
       when 405
