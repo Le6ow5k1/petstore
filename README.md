@@ -27,15 +27,14 @@ petstore.pet.find_by_status :sold
 petstore.pet.find_by_tags [:cat, :dog]
 
 # POST /pet/1
-petstore.pet.post { id: 1, category: { id: 0, name: 'cats'}, name: 'Ratmir',
-                    tags: [{ id: 0, name: 'Gypsy'}], status: 'available'}
+petstore.pet.create { id: 1, name: 'Ratmir', status: 'available'}
 
 # PUT /pet/1
-petstore.pet.put 1, { id: 1, category: { id: 0, name: 'cats'}, name: 'Ratmir',
+petstore.pet.replace { id: 1, category: { id: 0, name: 'cats'}, name: 'Ratmir',
                     tags: [{ id: 0, name: 'Gypsy'}], status: 'pending'}
 
 # PATCH /pet/1
-petstore.pet.patch 1, status: 'sold'
+petstore.pet.update 1, status: 'sold'
 
 # DELETE /pet/1
 petstore.pet.delete 1
