@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Sun, 23 Nov 2014 09:20:08 GMT
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS
+Access-Control-Allow-Headers: Content-Type, api_key, Authorization
+Content-Type: application/json
+Connection: close
+
+{"category":{"name":""},"name":"","photoUrls":[""],"tags":[{"name":""}],"status":""}
