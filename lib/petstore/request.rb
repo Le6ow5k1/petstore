@@ -25,6 +25,8 @@ module Petstore
         delete
       when :put
         put
+      when :patch
+        patch
       end
     end
 
@@ -46,6 +48,12 @@ module Petstore
 
     def put
       @conn.put @partial_path, @params do |req|
+        req.headers['Content-Type'] = 'application/json'
+      end
+    end
+
+    def patch
+      @conn.patch @partial_path, @params do |req|
         req.headers['Content-Type'] = 'application/json'
       end
     end
