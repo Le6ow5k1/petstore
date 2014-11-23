@@ -12,31 +12,44 @@ And then execute:
 
     $ bundle
 
+## Configuration
+
+```ruby
+# Through a configure block
+Petstore.configure |config|
+  # set timeout for requests for 2 seconds
+  config.timeout = 2
+end
+
+# or you can pass options directly when creating an endpoint
+petstore = Petstore.new(timeout: 2)
+```
+
 ## Usage
 
 ```ruby
-petstore = Petstore.new()
+petstore = Petstore.new
 
-# GET /pet/1
+# Get pet by id
 petstore.pet.get 1
 
-# GET /pet/FindByStatus?status=sold
+# Find pets by status
 petstore.pet.find_by_status :sold
 
-# GET /pet/FindByTags?tags=cat,dog
+# Find pets by tags
 petstore.pet.find_by_tags [:cat, :dog]
 
-# POST /pet/1
+# Add new pet to the store
 petstore.pet.create { id: 1, name: 'Ratmir', status: 'available'}
 
-# PUT /pet/1
+# Replace (update) an existing pet
 petstore.pet.replace { id: 1, category: { id: 0, name: 'cats'}, name: 'Ratmir',
                     tags: [{ id: 0, name: 'Gypsy'}], status: 'pending'}
 
-# PATCH /pet/1
+# Update some attributes of an existing pet
 petstore.pet.update 1, status: 'sold'
 
-# DELETE /pet/1
+# Delete pet
 petstore.pet.delete 1
 ```
 
