@@ -1,5 +1,5 @@
-require "petstore/version"
-require "petstore/client"
+require 'petstore/version'
+require 'petstore/client'
 
 module Petstore
   class << self
