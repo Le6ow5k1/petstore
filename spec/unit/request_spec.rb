@@ -15,7 +15,6 @@ describe Petstore::Request do
       subject { Petstore::Request.new(conn: @conn, partial_path: '/pet', method: :get) }
 
       it 'does a get request' do
-        expect(subject.make.status).to eq(200)
         expect(subject.send(:get).body).to eq('dog')
       end
     end
@@ -24,7 +23,6 @@ describe Petstore::Request do
       subject { Petstore::Request.new(conn: @conn, partial_path: '/pet', method: :post, params: {}) }
 
       it 'does a post request' do
-        expect(subject.make.status).to eq(200)
         expect(subject.send(:post).body).to eq('success')
       end
     end
