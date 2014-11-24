@@ -18,6 +18,11 @@ module Petstore
         Petstore::Request.new(conn: conn, partial_path: partial_path('findByTags'),
                               method: :get, params: {tags: "#{tags.join(',')}"}).make
       end
+
+      def upload_image(image_path)
+        Petstore::Request.new(conn: conn, partial_path: partial_path('uploadImage'),
+                              method: :multipart_post, params: {file: image_path}).make
+      end
     end
   end
 end
