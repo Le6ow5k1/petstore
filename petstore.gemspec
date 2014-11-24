@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "petstore"
   spec.version       = Petstore::VERSION
   spec.authors       = ["Le6ow5k1"]
-  spec.email         = ["bebot@mail.ru"]
+  spec.email         = ["le6oww5k1@gmail.com"]
   spec.summary       = %q{API client for the Pet Store sample API http://petstore.swagger.wordnik.com}
   spec.homepage      = ""
   spec.license       = "MIT"
