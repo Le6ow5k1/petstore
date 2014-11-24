@@ -15,25 +15,17 @@ module Petstore
       @method = options[:method]
       @params = options[:params]
     end
-    
+
     def make
-      case @method
-      when :get
-        response = get
-        Petstore::Response.new(response.status, response.body).parse
-      when :post
-        response = post
-        Petstore::Response.new(response.status, response.body).parse
-      when :delete
-        response = delete
-        Petstore::Response.new(response.status, response.body).parse
-      when :put
-        response = put
-        Petstore::Response.new(response.status, response.body).parse
-      when :patch
-        response = patch
-        Petstore::Response.new(response.status, response.body).parse
+      response = case @method
+        when :get then get
+        when :post then post
+        when :delete then delete
+        when :put then put
+        when :patch then patch
       end
+
+      Petstore::Response.new(response.status, response.body).parse
     end
 
     private
@@ -65,5 +57,5 @@ module Petstore
     end
 
   end
-  
+
 end
