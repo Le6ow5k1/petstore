@@ -4,7 +4,6 @@ describe 'Petstore API' do
   before(:all) do
     API_PATH = 'http://petstore.swagger.wordnik.com:80/api'
     DEFAULT_HEADERS = {'Accept'=>'*/*',
-                       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
                        'User-Agent'=>'Faraday v0.9.0'}
   end
 
@@ -23,7 +22,7 @@ describe 'Petstore API' do
     it 'creates new pet' do
       response_body = File.new("#{File.dirname(__FILE__)}/responses/post_pet_success_body.txt").read
       expected_body = JSON.parse(response_body)
-      
+
       stub = stub_request(:post, "#{API_PATH}/pet")
         .with(:headers => DEFAULT_HEADERS.merge('Content-Type'=>'application/json'))
         .to_return(body: response_body, status: 200)
@@ -94,5 +93,5 @@ describe 'Petstore API' do
       expect(response).to eq(expected_body)
     end
   end
-  
+
 end
