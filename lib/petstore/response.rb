@@ -19,13 +19,13 @@ module Petstore
           nil
         end
       when 404
-        raise NotFound.new @body[:message]
+        raise NotFound.new @body['message']
       when 405
-        raise NotAllowed.new @body[:message]
+        raise NotAllowed.new @body['message']
       when 400
-        raise InvalidRequest.new @body[:message]
+        raise InvalidRequest.new @body['message']
       when 500
-        raise ServerError.new @body[:message]
+        raise ServerError.new @body['message']
       end
     end
 
