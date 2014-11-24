@@ -13,6 +13,10 @@ module Petstore
 
       @conn = Faraday.new(:url => BASE_URI)
       @conn.options.timeout = @options[:timeout]
+
+      @conn.request :multipart
+      @conn.request :url_encoded
+      @conn.adapter :net_http
     end
 
     def pet
