@@ -19,5 +19,5 @@ module Petstore
       Petstore::Resources::Pets.new(@conn)
     end
   end
-  
+
 end

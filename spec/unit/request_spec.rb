@@ -26,7 +26,7 @@ describe Petstore::Request do
         expect(subject.send(:post).body).to eq('success')
       end
     end
-    
+
   end
 
 end

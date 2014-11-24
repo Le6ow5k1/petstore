@@ -8,7 +8,7 @@ describe Petstore do
     it 'sets configuration options' do
       Petstore.configure { |c| c.timeout = 3 }
 
-      expect(subject.timeout).to eq(3)    
+      expect(subject.timeout).to eq(3)
     end
   end
 

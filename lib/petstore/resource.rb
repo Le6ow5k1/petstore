@@ -17,7 +17,7 @@ module Petstore
     def self.set_path(path)
       @@path = path
     end
-    
+
     def get(path_part = nil, params = nil)
       Petstore::Request.new(conn: conn, partial_path: partial_path(path_part),
                             method: :get, params: params).make
@@ -49,5 +49,5 @@ module Petstore
       path_part ? "#{@@path}/#{path_part}" : "#{@@path}"
     end
   end
-        
+
 end

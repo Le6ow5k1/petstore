@@ -11,7 +11,7 @@ module Petstore
 
     # ```ruby
     # Petstore.configure do |config|
-    #   config.timeout = 1000
+    #   config.timeout = 1
     # end
     # ```
     def configure

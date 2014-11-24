@@ -40,5 +40,5 @@ describe Petstore::Client do
       expect(subject.pet).to be_an(Petstore::Resources::Pets)
     end
   end
-  
+
 end

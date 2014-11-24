@@ -9,7 +9,7 @@ module Petstore
       @status = status
       @body = body
     end
-    
+
     def parse
       case @status
       when 200
@@ -28,7 +28,7 @@ module Petstore
         raise ServerError.new @body[:message]
       end
     end
-    
+
   end
-  
+
 end
