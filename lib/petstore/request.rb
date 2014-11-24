@@ -23,6 +23,7 @@ module Petstore
         when :delete then delete
         when :put then put
         when :patch then patch
+        when :multipart_post then multipart_post
       end
 
       Petstore::Response.new(response.status, response.body).parse
@@ -56,6 +57,25 @@ module Petstore
       end
     end
 
+    def multipart_post
+      filename = @params[:file]
+      payload = {file: Faraday::UploadIO.new("#{filename}", mime_type(filename))}
+      
+      @conn.post @partial_path, payload
+    end
+
+    def mime_type(filename)
+      case filename
+      when /\.gif$/i
+        'image/gif'
+      when /\.jpe?g/i
+        'image/jpeg'
+      when /\.png$/i
+        'image/png'
+      else
+        'application/octet-stream'
+      end
+    end
   end
 
 end
