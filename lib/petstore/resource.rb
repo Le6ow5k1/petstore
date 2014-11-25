@@ -10,12 +10,20 @@ module Petstore
 
     validates_presence_of :path, :conn
 
-    def initialize(conn)
-      @conn ||= conn
+    class << self
+      attr_reader :path
+
+      def set_path(path)
+        @path = path
+      end
     end
 
-    def self.set_path(path)
-      @@path = path
+    def path
+      self.class.path
+    end
+
+    def initialize(conn)
+      @conn ||= conn
     end
 
     def get(path_part = nil, params = nil)
@@ -46,7 +54,7 @@ module Petstore
     private
 
     def partial_path(path_part)
-      path_part ? "#{@@path}/#{path_part}" : "#{@@path}"
+      path_part ? "#{path}/#{path_part}" : "#{path}"
     end
   end
 
