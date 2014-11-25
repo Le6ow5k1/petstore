@@ -7,42 +7,66 @@ describe 'Petstore API' do
                        'User-Agent'=>'Faraday v0.9.0'}
   end
 
-  context '/pet endpoint' do
+  describe 'pet endpoint' do
     let(:pets) { Petstore::Client.new.pet }
 
-    it 'gets pet by id' do
-      get_pet_0 = File.new("#{File.dirname(__FILE__)}/files/get_pet_0.txt").read
-      stub = stub_request(:get, "#{API_PATH}/pet/0")
-        .with(headers: DEFAULT_HEADERS).to_return(get_pet_0)
-      response = pets.get(0)
+    describe 'get method' do
+      before do
+        response_body = File.new("#{File.dirname(__FILE__)}/fixtures/get_pet.txt").read
+        @expected_body = JSON.parse(response_body)
 
-      expect(stub).to have_been_requested
+        @stub = stub_request(:get, "#{API_PATH}/pet/0")
+          .with(headers: DEFAULT_HEADERS).to_return(status: 200, body: response_body)
+        @response = pets.get(0)
+      end
+
+      it 'makes get request to /pet/:id' do
+        expect(@stub).to have_been_requested
+      end
+
+      it 'returns successfull response' do
+        expect(@response).to eq(@expected_body)
+      end
     end
 
-    it 'creates new pet' do
-      response_body = File.new("#{File.dirname(__FILE__)}/files/post_pet_success_body.txt").read
-      expected_body = JSON.parse(response_body)
+    describe 'create method' do
+      before do
+        response_body = File.new("#{File.dirname(__FILE__)}/fixtures/post_pet_success_body.txt").read
+        @expected_body = JSON.parse(response_body)
 
-      stub = stub_request(:post, "#{API_PATH}/pet")
-        .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/json'))
-        .to_return(body: response_body, status: 200)
-      response = pets.create(id: 1)
+        @stub = stub_request(:post, "#{API_PATH}/pet")
+          .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/json'))
+          .to_return(body: response_body, status: 200)
+        @response = pets.create(id: 1)
+      end
 
-      expect(stub).to have_been_requested
-      expect(response).to eq(expected_body)
+      it 'makes post request to /pet with right params' do
+        expect(@stub).to have_been_requested
+      end
+
+      it 'returns successfull response' do
+        expect(@response).to eq(@expected_body)
+      end
     end
 
-    it 'deletes pet from the store' do
-      stub = stub_request(:delete, "#{API_PATH}/pet/0")
-        .with(headers: DEFAULT_HEADERS).to_return(body: 'no content', status: 200)
-      response = pets.delete(0)
+    describe 'delete method' do
+      before do
+        @stub = stub_request(:delete, "#{API_PATH}/pet/0")
+          .with(headers: DEFAULT_HEADERS).to_return(body: 'no content', status: 200)
+        @response = pets.delete(0)
+      end
 
-      expect(stub).to have_been_requested
-      expect(response).to eq(nil)
+      it 'makes delete request to the /pet/:id' do
+        expect(@stub).to have_been_requested
+      end
+
+      it 'returns empty response' do
+        expect(@response).to eq(nil)
+      end
     end
 
     it 'replaces existing pet' do
-      response_body = File.new("#{File.dirname(__FILE__)}/files/post_pet_success_body.txt").read
+      response_body = File.new("#{File.dirname(__FILE__)}/fixtures/post_pet_success_body.txt").read
       expected_body = JSON.parse(response_body)
 
       stub = stub_request(:put, "#{API_PATH}/pet")
@@ -55,7 +79,7 @@ describe 'Petstore API' do
     end
 
     it 'updates existing pet' do
-      response_body = File.new("#{File.dirname(__FILE__)}/files/pet_1_put.txt").read
+      response_body = File.new("#{File.dirname(__FILE__)}/fixtures/pet_1_put.txt").read
       expected_body = JSON.parse(response_body)
 
       stub = stub_request(:patch, "#{API_PATH}/pet/1")
@@ -67,30 +91,68 @@ describe 'Petstore API' do
       expect(response).to eq(expected_body)
     end
 
-    it 'finds pet by status' do
-      response_body = File.new("#{File.dirname(__FILE__)}/files/pet_find_by_status.txt").read
-      expected_body = JSON.parse(response_body)
+    describe 'find_by_status method' do
+      before do
+        response_body = File.new("#{File.dirname(__FILE__)}/fixtures/pet_find_by_status.txt").read
+        @expected_body = JSON.parse(response_body)
 
-      stub = stub_request(:get, "#{API_PATH}/pet/findByStatus")
-        .with(headers: DEFAULT_HEADERS, query: {status: 'sold'})
-        .to_return(body: response_body, status: 200)
-      response = pets.find_by_status :sold
+        @stub = stub_request(:get, "#{API_PATH}/pet/findByStatus")
+          .with(headers: DEFAULT_HEADERS, query: {status: 'sold'})
+          .to_return(body: response_body, status: 200)
+        @response = pets.find_by_status :sold
+      end
 
-      expect(stub).to have_been_requested
-      expect(response).to eq(expected_body)
+      it 'makes get request to /pet/findByStatus url with status param' do
+        expect(@stub).to have_been_requested
+      end
+
+      it 'returns found pets' do
+        expect(@response).to eq(@expected_body)
+      end
     end
 
-    it 'finds pet by tags' do
-      response_body = File.new("#{File.dirname(__FILE__)}/files/pet_find_by_tags.txt").read
-      expected_body = JSON.parse(response_body)
+    describe 'find_by_tags method' do
+      before do
+        response_body = File.new("#{File.dirname(__FILE__)}/fixtures/pet_find_by_tags.txt").read
+        @expected_body = JSON.parse(response_body)
 
-      stub = stub_request(:get, "#{API_PATH}/pet/findByTags")
-        .with(headers: DEFAULT_HEADERS, query: {tags: 'cat,dog'})
-        .to_return(body: response_body, status: 200)
-      response = pets.find_by_tags [:cat, :dog]
+        @stub = stub_request(:get, "#{API_PATH}/pet/findByTags")
+          .with(headers: DEFAULT_HEADERS, query: {tags: 'cat,dog'})
+          .to_return(body: response_body, status: 200)
+        @response = pets.find_by_tags [:cat, :dog]
+      end
 
-      expect(stub).to have_been_requested
-      expect(response).to eq(expected_body)
+      it 'makes get request to /pet/findByTags url with tags param' do
+        expect(@stub).to have_been_requested
+      end
+
+      it 'returns found pets' do
+        expect(@response).to eq(@expected_body)
+      end
+    end
+
+    describe 'upload_image method' do
+      before do
+        file_like_object = double('file_like_object')
+        allow(Faraday::UploadIO).to receive(:new).and_return(file_like_object)
+
+        response_body = File.new("#{File.dirname(__FILE__)}/fixtures/upload_image_success.txt").read
+        @expected_body = JSON.parse(response_body)
+
+        @stub = stub_request(:post, "#{API_PATH}/pet/uploadImage")
+          .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/x-www-form-urlencoded'),
+                body: /.*/).to_return(status: 200, body: response_body)
+
+        @response = pets.upload_image 'image'
+      end
+
+      it 'makes post request to /pet/uploadImage' do
+        expect(@stub).to have_been_requested
+      end
+
+      it 'returns successfull response' do
+        expect(@response).to eq(@expected_body)
+      end
     end
   end
 
