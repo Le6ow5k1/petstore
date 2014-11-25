@@ -1,0 +1,4 @@
+{
+    "code": 200,
+    "message": "additionalMetadata: null\nFile uploaded to ./download.jpg, 6967 bytes"
+}
