@@ -60,7 +60,7 @@ module Petstore
     def multipart_post
       filename = @params[:file]
       payload = {file: Faraday::UploadIO.new("#{filename}", mime_type(filename))}
-      
+
       @conn.post @partial_path, payload
     end
 

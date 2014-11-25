@@ -16,7 +16,6 @@ module Petstore
 
       @conn.request :multipart
       @conn.request :url_encoded
-      @conn.adapter :net_http
     end
 
     def pet
