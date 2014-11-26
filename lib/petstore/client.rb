@@ -17,9 +17,6 @@ module Petstore
         c.request :url_encoded
         c.request :json
 
-        # c.response :json
-        c.response :logger
-
         c.options.timeout = @options[:timeout]
         c.adapter :net_http
       end
