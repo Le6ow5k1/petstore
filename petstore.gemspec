@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activemodel'
   spec.add_dependency 'faraday', '= 0.9.0'
+  spec.add_dependency 'faraday_middleware'
   spec.add_dependency 'json'
 
   spec.add_development_dependency "bundler", "~> 1.6"
