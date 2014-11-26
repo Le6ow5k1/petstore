@@ -20,7 +20,7 @@ describe 'Petstore API' do
         @response = pets.get(0)
       end
 
-      it 'makes get request to /pet/:id' do
+      it 'makes a get request to /pet/:id' do
         expect(@stub).to have_been_requested
       end
 
@@ -40,7 +40,7 @@ describe 'Petstore API' do
         @response = pets.create(id: 1)
       end
 
-      it 'makes post request to /pet with right params' do
+      it 'makes a post request to /pet with right params' do
         expect(@stub).to have_been_requested
       end
 
@@ -56,7 +56,7 @@ describe 'Petstore API' do
         @response = pets.delete(0)
       end
 
-      it 'makes delete request to the /pet/:id' do
+      it 'makes a delete request to the /pet/:id' do
         expect(@stub).to have_been_requested
       end
 
@@ -65,30 +65,44 @@ describe 'Petstore API' do
       end
     end
 
-    it 'replaces existing pet' do
-      response_body = File.new("#{File.dirname(__FILE__)}/fixtures/post_pet_success_body.txt").read
-      expected_body = JSON.parse(response_body)
+    describe 'replace method' do
+      before do
+        response_body = File.new("#{File.dirname(__FILE__)}/fixtures/post_pet_success_body.txt").read
+        @expected_body = JSON.parse(response_body)
 
-      stub = stub_request(:put, "#{API_PATH}/pet")
-        .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/json'))
-        .to_return(body: response_body, status: 200)
-      response = pets.replace(id: 1)
+        @stub = stub_request(:put, "#{API_PATH}/pet")
+          .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/json'))
+          .to_return(body: response_body, status: 200)
+        @response = pets.replace(id: 1)
+      end
 
-      expect(stub).to have_been_requested
-      expect(response).to eq(expected_body)
+      it 'makes a put request to the /pet url with expected params' do
+        expect(@stub).to have_been_requested
+      end
+
+      it 'returns successfull response' do
+        expect(@response).to eq(@expected_body)
+      end
     end
 
-    it 'updates existing pet' do
-      response_body = File.new("#{File.dirname(__FILE__)}/fixtures/pet_1_put.txt").read
-      expected_body = JSON.parse(response_body)
+    describe 'update method' do
+      before do
+        response_body = File.new("#{File.dirname(__FILE__)}/fixtures/pet_1_put.txt").read
+        @expected_body = JSON.parse(response_body)
 
-      stub = stub_request(:patch, "#{API_PATH}/pet/1")
-        .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/json'))
-        .to_return(body: response_body, status: 200)
-      response = pets.update 1, status: 'pending'
+        @stub = stub_request(:patch, "#{API_PATH}/pet/1")
+          .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/json'))
+          .to_return(body: response_body, status: 200)
+        @response = pets.update 1, status: 'pending'
+      end
 
-      expect(stub).to have_been_requested
-      expect(response).to eq(expected_body)
+      it 'makes a patch request to the /pet/:id url' do
+        expect(@stub).to have_been_requested
+      end
+
+      it 'returns updated pet' do
+        expect(@response).to eq(@expected_body)
+      end
     end
 
     describe 'find_by_status method' do
@@ -102,7 +116,7 @@ describe 'Petstore API' do
         @response = pets.find_by_status :sold
       end
 
-      it 'makes get request to /pet/findByStatus url with status param' do
+      it 'makes a get request to /pet/findByStatus url with status param' do
         expect(@stub).to have_been_requested
       end
 
@@ -122,7 +136,7 @@ describe 'Petstore API' do
         @response = pets.find_by_tags [:cat, :dog]
       end
 
-      it 'makes get request to /pet/findByTags url with tags param' do
+      it 'makes a get request to /pet/findByTags url with tags param' do
         expect(@stub).to have_been_requested
       end
 
@@ -146,7 +160,7 @@ describe 'Petstore API' do
         @response = pets.upload_image 'image'
       end
 
-      it 'makes post request to /pet/uploadImage' do
+      it 'makes a post request to /pet/uploadImage' do
         expect(@stub).to have_been_requested
       end
 
