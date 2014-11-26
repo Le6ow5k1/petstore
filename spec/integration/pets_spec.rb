@@ -42,7 +42,7 @@ describe 'Petstore API' do
         subject(:request) { pets.get(0) }
 
         it 'raises NotFound exception with message from response' do
-          expect { request }.to raise_error(Petstore::Errors::NotFound, @expected_message)
+          expect { request }.to raise_error(Petstore::NotFound, @expected_message)
         end
       end
     end
@@ -81,7 +81,7 @@ describe 'Petstore API' do
         subject(:request) { pets.create(a: 1) }
 
         it 'raises InvalidRequest exception with message from response' do
-          expect { request }.to raise_error(Petstore::Errors::InvalidRequest, @expected_message)
+          expect { request }.to raise_error(Petstore::InvalidRequest, @expected_message)
         end
       end
     end

@@ -1,7 +1,10 @@
 require 'petstore/version'
 require 'petstore/client'
+require 'petstore/errors'
 
 module Petstore
+  include Errors
+
   class << self
     attr_accessor :timeout
 
@@ -9,15 +12,9 @@ module Petstore
       Client.new(options)
     end
 
-    # ```ruby
-    # Petstore.configure do |config|
-    #   config.timeout = 1
-    # end
-    # ```
     def configure
       yield self
       true
     end
   end
-
 end

@@ -1,9 +1,6 @@
 module Petstore
   class Response
     require 'json'
-    require 'petstore/errors'
-
-    include Petstore::Errors
 
     def initialize(status, body)
       @status = status
@@ -17,13 +14,13 @@ module Petstore
       when 200
         @body
       when 404
-        raise NotFound.new body_message
+        raise Petstore::NotFound.new body_message
       when 405
-        raise NotAllowed.new body_message
+        raise Petstore::NotAllowed.new body_message
       when 400
-        raise InvalidRequest.new body_message
+        raise Petstore::InvalidRequest.new body_message
       when 500
-        raise ServerError.new body_message
+        raise Petstore::ServerError.new body_message
       end
     end
 
