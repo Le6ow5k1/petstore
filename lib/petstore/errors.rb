@@ -1,32 +1,21 @@
 module Petstore
   module Errors
-    class ResponseError
-      attr_reader :code, :message
-
+    class ResponseError < StandardError
       def initialize(message)
         @message = message
-        @code = @@code
       end
 
-      def self.set_code(code)
-        @@code = code
+      def to_s
+        @message
       end
     end
 
-    class NotFound < ResponseError
-      set_code 404
-    end
+    class NotFound < ResponseError; end
 
-    class InvalidRequest < ResponseError
-      set_code 400
-    end
+    class InvalidRequest < ResponseError; end
 
-    class NotAllowed < ResponseError
-      set_code 405
-    end
+    class NotAllowed < ResponseError; end
 
-    class ServerError < ResponseError
-      set_code 500
-    end
+    class ServerError < ResponseError; end
   end
 end
