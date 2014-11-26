@@ -28,6 +28,8 @@ petstore = Petstore.new(timeout: 2)
 ## Usage
 
 ```ruby
+require 'petstore'
+
 petstore = Petstore.new
 
 # Get pet by id
@@ -40,23 +42,17 @@ petstore.pet.find_by_status :sold
 petstore.pet.find_by_tags [:cat, :dog]
 
 # Add new pet to the store
-petstore.pet.create { id: 1, name: 'Ratmir', status: 'available'}
+petstore.pet.create id: 1, name: 'Ratmir', status: 'available'
 
 # Replace (update) an existing pet
-petstore.pet.replace { id: 1, category: { id: 0, name: 'cats'}, name: 'Ratmir',
-                    tags: [{ id: 0, name: 'Gypsy'}], status: 'pending'}
+petstore.pet.replace id: 1, category: { id: 0, name: 'cats'}, name: 'RinTinTin'
 
 # Update some attributes of an existing pet
 petstore.pet.update 1, status: 'sold'
 
 # Delete pet
 petstore.pet.delete 1
+
+# Upload image
+petstore.pet.upload_image 'path_to_image.jpg'
 ```
-
-## Contributing
-
-1. Fork it ( https://github.com/Le6ow5k1/petstore/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
