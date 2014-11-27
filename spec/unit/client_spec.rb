@@ -12,7 +12,7 @@ describe Petstore::Client do
       subject { Petstore::Client.new(timeout: 1) }
 
       it 'instansiate Client object with given options' do
-        expect(subject.options).to eq({timeout: 1})
+        expect(subject.options[:timeout]).to eq(1)
       end
 
       it 'sets @conn variable to be a Faraday instance with given options' do
@@ -24,7 +24,7 @@ describe Petstore::Client do
       subject { Petstore::Client.new }
 
       it 'instansiate Client object with default options' do
-        expect(subject.options).to eq({timeout: 2})
+        expect(subject.options[:timeout]).to eq(2)
       end
 
       it 'sets @conn variable to be a Faraday instance with default options' do
