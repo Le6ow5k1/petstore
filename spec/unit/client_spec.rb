@@ -33,11 +33,11 @@ describe Petstore::Client do
     end
   end
 
-  describe '#pet' do
+  describe '#pets' do
     subject { Petstore::Client.new }
 
     it 'returns an instance of Pets resource' do
-      expect(subject.pet).to be_an(Petstore::Resources::Pets)
+      expect(subject.pets).to be_an(Petstore::Resources::Pets)
     end
   end
 

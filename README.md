@@ -31,30 +31,31 @@ petstore = Petstore.new(timeout: 2)
 require 'petstore'
 
 petstore = Petstore.new
+pets = petstore.pets
 
 # Get pet by id
-petstore.pet.get 1
+pets.get 1
 
 # Find pets by status
-petstore.pet.find_by_status :sold
+pets.find_by_status :sold
 
 # Find pets by tags
-petstore.pet.find_by_tags [:cat, :dog]
+pets.find_by_tags [:cat, :dog]
 
 # Add new pet to the store
-petstore.pet.create id: 1, name: 'Ratmir', status: 'available'
+pets.create id: 1, name: 'Ratmir', status: 'available'
 
 # Replace (update) an existing pet
-petstore.pet.replace id: 1, category: { id: 0, name: 'cats'}, name: 'RinTinTin'
+pets.replace id: 1, category: { id: 0, name: 'cats'}, name: 'RinTinTin'
 
 # Update some attributes of an existing pet
-petstore.pet.update 1, status: 'sold'
+pets.update 1, status: 'sold'
 
 # Delete pet
-petstore.pet.delete 1
+pets.delete 1
 
 # Upload image
-petstore.pet.upload_image 'path_to_image.jpg'
+pets.upload_image 'path_to_image.jpg'
 ```
 
 ## Handling Errors
