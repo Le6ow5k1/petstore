@@ -22,7 +22,7 @@ module Petstore
       end
     end
 
-    def pet
+    def pets
       Petstore::Resources::Pets.new(@conn)
     end
   end

@@ -8,7 +8,7 @@ describe 'Petstore API' do
   end
 
   describe 'pet endpoint' do
-    let(:pets) { Petstore::Client.new.pet }
+    let(:pets) { Petstore::Client.new.pets }
 
     describe 'get method' do
       context 'when there is a such pet' do

@@ -61,13 +61,13 @@ petstore.pet.upload_image 'path_to_image.jpg'
 
 There are 4 kinds of errors that can be raised while invoking methods on resources. They corresponds to the status codes returned from API.
 
-* `Petstore::NotFound`
-* `Petstore::InvalidRequest`
-* `Petstore::NotAllowed`
-* `Petstore::ServerError`
+* `Petstore::Errors::NotFound`
+* `Petstore::Errors::InvalidRequest`
+* `Petstore::Errors::NotAllowed`
+* `Petstore::Errors::ServerError`
 
 ```ruby
 petstore.pet.get 696
-# => Petstore::NotFound: Pet not found
+# => Petstore::Errors::NotFound: Pet not found
 ```
 
