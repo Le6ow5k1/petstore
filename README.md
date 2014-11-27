@@ -68,7 +68,7 @@ There are 4 kinds of errors that can be raised while invoking methods on resourc
 * `Petstore::Errors::ServerError`
 
 ```ruby
-petstore.pet.get 696
+pets.get 696
 # => Petstore::Errors::NotFound: Pet not found
 ```
 
