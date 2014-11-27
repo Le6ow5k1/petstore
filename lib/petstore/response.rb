@@ -2,7 +2,7 @@ module Petstore
   class Response
     require 'json'
 
-    def initialize(status, body)
+    def initialize(status, body, options = nil)
       @status = status
       @body = body
     end
@@ -12,7 +12,8 @@ module Petstore
 
       case @status
       when 200
-        @body
+        # Do not return body if it just a success message
+        @body unless body_code == 200
       when 404
         raise Petstore::NotFound.new body_message
       when 405
@@ -36,6 +37,10 @@ module Petstore
 
     def body_message
       @body['message'] if @body && @body.is_a?(Hash)
+    end
+
+    def body_code
+      @body['code'] if @body && @body.is_a?(Hash)
     end
 
   end

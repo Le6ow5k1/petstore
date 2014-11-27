@@ -51,7 +51,6 @@ describe 'Petstore API' do
       context 'when valid input is passed' do
         before do
           response_body = File.new("#{File.dirname(__FILE__)}/fixtures/post_pet_success_body.txt").read
-          @expected_body = JSON.parse(response_body)
 
           @stub = stub_request(:post, "#{API_PATH}/pet")
             .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/json'))
@@ -64,7 +63,7 @@ describe 'Petstore API' do
         end
 
         it 'returns successfull response' do
-          expect(@response).to eq(@expected_body)
+          expect(@response).to eq(nil)
         end
       end
 
@@ -105,7 +104,6 @@ describe 'Petstore API' do
     describe 'replace method' do
       before do
         response_body = File.new("#{File.dirname(__FILE__)}/fixtures/post_pet_success_body.txt").read
-        @expected_body = JSON.parse(response_body)
 
         @stub = stub_request(:put, "#{API_PATH}/pet")
           .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/json'))
@@ -118,7 +116,7 @@ describe 'Petstore API' do
       end
 
       it 'returns successfull response' do
-        expect(@response).to eq(@expected_body)
+        expect(@response).to eq(nil)
       end
     end
 
@@ -188,7 +186,6 @@ describe 'Petstore API' do
         allow(Faraday::UploadIO).to receive(:new).and_return(file_like_object)
 
         response_body = File.new("#{File.dirname(__FILE__)}/fixtures/upload_image_success.txt").read
-        @expected_body = JSON.parse(response_body)
 
         @stub = stub_request(:post, "#{API_PATH}/pet/uploadImage")
           .with(headers: DEFAULT_HEADERS.merge('Content-Type'=>'application/x-www-form-urlencoded'),
@@ -202,7 +199,7 @@ describe 'Petstore API' do
       end
 
       it 'returns successfull response' do
-        expect(@response).to eq(@expected_body)
+        expect(@response).to eq(nil)
       end
     end
   end
