@@ -14,7 +14,7 @@ When(/^I call "(.*?)" method on "(.*?)" resource with (array|hash):$/) do |metho
   when 'array'
     table.raw.flatten
   when 'hash'
-    table.raw.to_h
+    Hash[table.raw]
   end
   @response = @petstore.send(resource.to_sym).send(method.to_sym, params)
 end
