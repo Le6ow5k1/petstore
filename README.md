@@ -22,7 +22,7 @@ Petstore.configure |config|
 end
 
 # or you can pass options directly when creating an endpoint
-petstore = Petstore.new(timeout: 2)
+petstore = Petstore.new(timeout: 2, url: 'http://my_petstore_host.com/api')
 ```
 
 ## Usage
